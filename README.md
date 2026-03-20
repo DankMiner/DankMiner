@@ -9,7 +9,7 @@
 
 <p align="center">
   <a href="https://1miner.net"><img src="https://img.shields.io/badge/pool-1Miner.net-00ccff?style=for-the-badge" alt="1Miner.net"></a>
-  <a href="#"><img src="https://img.shields.io/badge/algo-whirlpool--xorfold-0088cc?style=for-the-badge" alt="Algorithm"></a>
+  <a href="#"><img src="https://img.shields.io/badge/algo-wpxf-0088cc?style=for-the-badge" alt="Algorithm"></a>
   <a href="#"><img src="https://img.shields.io/badge/version-1.2.7-00aaff?style=for-the-badge" alt="Version"></a>
   <a href="#"><img src="https://img.shields.io/badge/fee-5%25-005588?style=for-the-badge" alt="Dev Fee"></a>
 </p>

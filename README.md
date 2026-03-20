@@ -192,7 +192,7 @@ The miner reports hashrate, GPU temps, fan speeds, and share counts to the HiveO
 
 ## Dev Fee
 
-2% dev fee to support continued development. The miner mines to the developer address for a short period every 30 minutes after a 5-minute warmup.
+5% dev fee to support continued development. The miner mines to the developer address for a short period every 30 minutes after a 5-minute warmup.
 
 ---
 

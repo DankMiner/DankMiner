@@ -1,18 +1,35 @@
 
+
 <h1 align="center">DankMiner v1.2.7</h1>
 
 <p align="center">
   <strong>High-performance GPU miner for CapStash (CAP)</strong><br>
-  Whirlpool XOR-Fold Proof-of-Work &bull; Pool + Solo Mining &bull; Windows GUI &amp; CLI
+  Whirlpool XOR-Fold Proof-of-Work &bull; Pool + Solo Mining &bull; Windows &bull; Linux &bull; HiveOS
 </p>
 
 <p align="center">
-  <a href="https://1miner.net"><img src="https://img.shields.io/badge/pool-1Miner.net-00ccff?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJMMiAyMmgyMEwxMiAyeiIgZmlsbD0iIzAwY2NmZiIvPjwvc3ZnPg==" alt="1Miner.net"></a>
+  <a href="https://1miner.net"><img src="https://img.shields.io/badge/pool-1Miner.net-00ccff?style=for-the-badge" alt="1Miner.net"></a>
   <a href="#"><img src="https://img.shields.io/badge/algo-whirlpool--xorfold-0088cc?style=for-the-badge" alt="Algorithm"></a>
   <a href="#"><img src="https://img.shields.io/badge/version-1.2.7-00aaff?style=for-the-badge" alt="Version"></a>
-  <a href="#"><img src="https://img.shields.io/badge/platform-Windows-0078D6?style=for-the-badge&logo=windows" alt="Windows"></a>
-  <a href="#"><img src="https://img.shields.io/badge/GPU-NVIDIA%20%7C%20AMD-76b900?style=for-the-badge" alt="GPU Support"></a>
+  <a href="#"><img src="https://img.shields.io/badge/fee-2%25-005588?style=for-the-badge" alt="Dev Fee"></a>
 </p>
+
+<p align="center">
+  <a href="#"><img src="https://img.shields.io/badge/Windows-0078D6?style=flat-square&logo=windows&logoColor=white" alt="Windows"></a>
+  <a href="#"><img src="https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black" alt="Linux"></a>
+  <a href="#"><img src="https://img.shields.io/badge/HiveOS-FFB800?style=flat-square" alt="HiveOS"></a>
+  <a href="#"><img src="https://img.shields.io/badge/NVIDIA-76B900?style=flat-square&logo=nvidia&logoColor=white" alt="NVIDIA"></a>
+  <a href="#"><img src="https://img.shields.io/badge/AMD-ED1C24?style=flat-square&logo=amd&logoColor=white" alt="AMD"></a>
+</p>
+
+---
+
+## Downloads
+
+| Platform | Download |
+|----------|----------|
+| **Windows** (GUI + CLI) | [DankMinerV1.2.7.zip](../../releases/download/DankMinerV1.2.7/DankMinerV1.2.7.zip) |
+| **Linux / HiveOS** | [DankMiner-v1.2.7-linux.tar.gz](../../releases/download/DankMinerV1.2.7/DankMiner-v1.2.7-linux.tar.gz) |
 
 ---
 
@@ -20,7 +37,7 @@
 
 DankMiner is a GPU-accelerated miner for the **CapStash** blockchain, implementing the Whirlpool XOR-Fold proof-of-work algorithm. Built for maximum hashrate with OpenCL and CUDA support.
 
-### Key Features
+### Features
 
 - **Pool Mining** — Stratum protocol (Bitcoin-style, MiningCore compatible)
 - **Solo Mining** — Direct to node via getblocktemplate RPC
@@ -31,33 +48,71 @@ DankMiner is a GPU-accelerated miner for the **CapStash** blockchain, implementi
 - **Wallet Rotation** — Rotate payout addresses on a timer
 - **Optimized Kernel** — Precomputed key schedule, local memory T0 table, multi-nonce per thread
 
-## Quick Start
+---
 
-### GUI (Windows)
+## Quick Start — Windows
 
-1. Download `DankMiner.exe` from [Releases](../../releases)
-2. Double-click to launch
-3. Select **Pool Mining** or **Solo Mining**
-4. Enter your CapStash wallet address
-5. Click **Start Mining**
+1. Download [DankMinerV1.2.7.zip](../../releases/download/DankMinerV1.2.7/DankMinerV1.2.7.zip)
+2. Extract and run `DankMiner.exe`
+3. Select **Pool Mining**, enter your wallet address
+4. Click **Start Mining**
 
-The default pool is pre-configured to `stratum+tcp://1miner.net:3691`.
+Pool is pre-configured to `stratum+tcp://1miner.net:3691`.
 
-### CLI (Windows / Linux)
+**CLI:**
+```
+DankMiner.exe --cli --pool stratum+tcp://1miner.net:3691 --address YOUR_ADDRESS
+```
 
-**Pool mining:**
+---
+
+## Quick Start — Linux
+
 ```bash
-DankMiner.exe --cli --pool stratum+tcp://1miner.net:3691 --address YOUR_CAP_ADDRESS
+tar xzf DankMiner-v1.2.7-linux.tar.gz
+cd dankminer
+./install.sh                # install pyopencl, numpy, pycuda
+nano mine.sh                # set your wallet address
+./mine.sh                   # start mining
 ```
 
 **Solo mining:**
 ```bash
-DankMiner.exe --cli --host 127.0.0.1 --port 33333 --user capstashrpc --password YOUR_PASS --address YOUR_CAP_ADDRESS
+nano mine_solo.sh           # set your node credentials + address
+./mine_solo.sh
 ```
 
-## Pool Mining
+**CLI directly:**
+```bash
+python3 dankminer.py --cli --pool stratum+tcp://1miner.net:3691 --address YOUR_ADDRESS
+```
 
-DankMiner connects to stratum-compatible mining pools using the standard Bitcoin mining protocol.
+---
+
+## Quick Start — HiveOS
+
+**Step 1 — Upload to rig:**
+```bash
+scp DankMiner-v1.2.7-linux.tar.gz root@YOUR_RIG_IP:/tmp/
+ssh root@YOUR_RIG_IP
+mkdir -p /hive/miners/custom/dankminer
+tar xzf /tmp/DankMiner-v1.2.7-linux.tar.gz -C /hive/miners/custom/
+```
+
+**Step 2 — Create Flight Sheet:**
+
+| Field | Value |
+|-------|-------|
+| Miner | Custom |
+| Pool URL | `stratum+tcp://1miner.net:3691` |
+| Template | `YOUR_CAP_ADDRESS` |
+| Worker | `%WORKER_NAME%` |
+
+The miner reports hashrate, GPU temps, fan speeds, and share counts to the HiveOS dashboard automatically.
+
+---
+
+## Pool Mining
 
 | Setting | Value |
 |---------|-------|
@@ -69,24 +124,25 @@ DankMiner connects to stratum-compatible mining pools using the standard Bitcoin
 
 - [1Miner.net](https://1miner.net) — Official CapStash pool
 
-## Performance
+---
 
-Hashrates vary by GPU. Approximate values on the Whirlpool XOR-Fold algorithm:
+## Performance
 
 | GPU | Hashrate |
 |-----|----------|
-| RTX 4070 SUPER | ~1.0–1.2 GH/s |
 | RTX 4090 | ~2.0+ GH/s |
-| RX 7900 XTX | ~800 MH/s |
+| RTX 4070 SUPER | ~1.0–1.2 GH/s |
 | RTX 3070 | ~500 MH/s |
+| RX 7900 XTX | ~800 MH/s |
 | RX 570 | ~80 MH/s |
 
-> Actual hashrates depend on driver version, system configuration, and pool difficulty.
+> Actual hashrates depend on drivers, system configuration, and pool difficulty.
+
+---
 
 ## CLI Options
 
 ```
-Options:
   --pool URL           Stratum pool URL (stratum+tcp://host:port)
   --host HOST          RPC host for solo mining (default: 127.0.0.1)
   --port PORT          RPC port for solo mining (default: 33333)
@@ -98,61 +154,57 @@ Options:
   --no-gpu             Force CPU mining (slow, for testing only)
 ```
 
-## HiveOS
-
-DankMiner supports HiveOS as a custom miner.
-
-**Flight Sheet Configuration:**
-
-| Field | Value |
-|-------|-------|
-| Miner | Custom |
-| Installation URL | *(upload tarball to rig)* |
-| Pool URL | `stratum+tcp://1miner.net:3691` |
-| Wallet | Your CAP address |
-| Worker | `%WORKER_NAME%` |
+---
 
 ## Requirements
 
-- **GPU**: NVIDIA (OpenCL or CUDA) or AMD (OpenCL)
-- **OS**: Windows 10/11 (64-bit)
-- **Drivers**: Latest NVIDIA or AMD GPU drivers
-- **VRAM**: 2GB+ recommended
+**Windows:**
+- Windows 10/11 (64-bit)
+- NVIDIA or AMD GPU with latest drivers
+- No other dependencies — everything is bundled in the .exe
 
-The standalone `.exe` has no additional dependencies — Python, OpenCL libraries, and the mining kernel are all bundled.
+**Linux / HiveOS:**
+- Python 3.8+
+- pyopencl + numpy (installed via `./install.sh`)
+- pycuda (optional, auto-installed for NVIDIA)
+- GPU with OpenCL 1.2+ or CUDA support
+
+---
 
 ## v1.2.7 Changelog
 
 **Performance**
-- Removed per-share CPU verification bottleneck — GPU stays saturated
+- Removed per-share CPU verification bottleneck
 - Throttled network polling to reduce per-batch overhead
-- Batched stats and submit result processing
-- Up to 4-5x faster stratum hashrate vs v1.2.5
+- Batched stats and submit processing
+- Significantly faster stratum hashrate vs previous versions
 
 **Features**
-- Pool + Solo mining in one binary with GUI toggle
+- Pool + Solo mining with GUI toggle (Windows)
 - Stratum protocol support (MiningCore / Bitcoin-style)
-- Shares accepted/rejected counter in GUI
-- Pool URL and worker name in GUI with config persistence
-- Wallet rotation support (`--wallet-list`)
+- Shares accepted/rejected counter
+- Pool URL and worker name with config persistence
+- HiveOS integration with full dashboard stats (hashrate, temps, fans, shares)
+- Linux standalone scripts with auto-installer
+- Wallet rotation support
 
-**Fixes**
-- Fixed hashrate/stats attribute errors in pool mode
-- Fixed GUI stats callback for stratum mode
-- Proper version stamping across all components
+---
 
 ## Dev Fee
 
-DankMiner includes a 5% dev fee to support continued development. The miner mines to the developer address for 90 seconds every 30 minutes (after a 5-minute warmup). This applies to both pool and solo mining.
+2% dev fee to support continued development. The miner mines to the developer address for a short period every 30 minutes after a 5-minute warmup.
+
+---
 
 ## Disclaimer
 
 Use at your own risk. Mining cryptocurrency consumes electricity and generates heat. Ensure adequate cooling and monitor your hardware. The developers are not responsible for any hardware damage, financial loss, or other issues arising from the use of this software.
 
+---
+
 ## Links
 
 - **Pool**: [1Miner.net](https://1miner.net)
-- **CapStash**: [CapStash Explorer](https://1miner.net)
 
 ---
 

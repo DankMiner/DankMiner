@@ -1,6 +1,3 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/1minerNet/DankMiner/main/assets/banner.png" alt="DankMiner" width="600">
-</p>
 
 <h1 align="center">DankMiner v1.2.7</h1>
 

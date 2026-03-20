@@ -4,7 +4,7 @@
 
 <p align="center">
   <strong>High-performance GPU miner for CapStash (CAP)</strong><br>
-  Whirlpool XOR-Fold Proof-of-Work &bull; Pool + Solo Mining &bull; Windows &bull; Linux &bull; HiveOS
+  WXRF Proof-of-Work &bull; Pool + Solo Mining &bull; Windows &bull; Linux &bull; HiveOS
 </p>
 
 <p align="center">

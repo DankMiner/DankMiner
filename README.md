@@ -127,7 +127,7 @@ RTX 50 series: use `dankminer-1.2.8-rtx50.tar.gz` instead.
 ## Links
 
 - **Pool:** [1miner.net](https://1miner.net)
-- **Discord:** [discord.gg/Cs8PRZQb](https://discord.gg/Cs8PRZQb)
+- **Discord:** [discord.gg/YZXGEa9RhK](https://discord.gg/YZXGEa9RhK)
 - **CapStash Core:** [github.com/CapStash/CapStash-Core](https://github.com/CapStash/CapStash-Core)
 
 ---

@@ -11,6 +11,7 @@ Works on NVIDIA and AMD GPUs. Pool and solo mining. HiveOS ready.
 | Platform | Download | GPUs |
 |----------|----------|------|
 | **Windows** | [DankMiner-v1.2.8-Windows.zip](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.8/DankMiner-v1.2.8-Windows.zip) | NVIDIA + AMD |
+| **Windows** | [DankMiner-v1.2.8-Windows_GUI.zip](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.8/DankMiner-v1.2.8-Windows_GUI.zip) | NVIDIA + AMD |
 | **Linux** | [DankMiner-v1.2.8-Linux.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.8/DankMiner-v1.2.8-Linux.tar.gz) | NVIDIA + AMD |
 | **HiveOS** | [dankminer-1.2.8-hiveos.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.8/dankminer-1.2.8-hiveos.tar.gz) | NVIDIA + AMD |
 | **Linux RTX 50 Series** | [dankminer-1.2.8-rtx50.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.8/dankminer-1.2.8-rtx50.tar.gz) | RTX 5060–5090 + all others |

@@ -1,7 +1,5 @@
-# DankMiner v1.2.8
-
+# DankMiner v1.2.9
 **GPU Miner for CapStash & Xelis**
-
 Works on NVIDIA and AMD GPUs. Pool and solo mining. HiveOS ready.
 
 ---
@@ -10,17 +8,16 @@ Works on NVIDIA and AMD GPUs. Pool and solo mining. HiveOS ready.
 
 | Platform | Download | GPUs |
 |----------|----------|------|
-| **Windows** | [DankMiner-v1.2.8-Windows.zip](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.8/DankMiner-v1.2.8-Windows.zip) | NVIDIA + AMD |
-| **Windows** | [DankMiner-v1.2.8-Windows_GUI.zip](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.8/DankMiner-v1.2.8-Windows_GUI.zip) | NVIDIA + AMD |
-| **Linux** | [DankMiner-v1.2.8-Linux.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.8/DankMiner-v1.2.8-Linux.tar.gz) | NVIDIA + AMD |
-| **HiveOS** | [dankminer-1.2.8-hiveos.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.8/dankminer-1.2.8-hiveos.tar.gz) | NVIDIA + AMD |
-| **Linux RTX 50 Series** | [dankminer-1.2.8-rtx50.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.8/dankminer-1.2.8-rtx50.tar.gz) | RTX 5060–5090 + all others |
+| **Windows** | [DankMiner-v1.2.9-Windows.zip](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9/DankMiner-v1.2.9-Windows.zip) | NVIDIA + AMD |
+| **Linux** | [DankMiner-v1.2.9-Linux.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9/DankMiner-v1.2.9-Linux.tar.gz) | NVIDIA + AMD |
+| **HiveOS** | [dankminer-1.2.9-hiveos.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9/dankminer-1.2.9-hiveos.tar.gz) | NVIDIA + AMD |
+| **Linux RTX 50 Series** | [dankminer-1.2.9-rtx50.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9/dankminer-1.2.9-rtx50.tar.gz) | RTX 5060–5090 + all others |
 
 > **Which do I need?**
-> - **Windows** → `DankMiner-v1.2.8-Windows.zip`
-> - **Linux desktop** → `DankMiner-v1.2.8-Linux.tar.gz`
-> - **HiveOS** → `dankminer-1.2.8-hiveos.tar.gz`
-> - **RTX 5060/5070/5080/5090 on Linux** → `dankminer-1.2.8-rtx50.tar.gz`
+> - **Windows** → `DankMiner-v1.2.9-Windows.zip`
+> - **Linux desktop** → `DankMiner-v1.2.9-Linux.tar.gz`
+> - **HiveOS** → `dankminer-1.2.9-hiveos.tar.gz`
+> - **RTX 5060/5070/5080/5090 on Linux** → `dankminer-1.2.9-rtx50.tar.gz`
 
 ---
 
@@ -59,7 +56,6 @@ dankminer -a xelis -w YOUR_ADDRESS -p stratum+tcp://1miner.net:3400
 ## Supported GPUs
 
 **NVIDIA:** GTX 1060 through RTX 5090
-
 **AMD:** RX 470/480/570/580, Vega, RX 5000/6000/7000/9000 series
 
 AMD GPUs are auto-detected — no extra config needed.
@@ -68,12 +64,38 @@ AMD GPUs are auto-detected — no extra config needed.
 
 ## Stratum Servers
 
-**CapStash:**
-- 🇺🇸 USA: `stratum+tcp://1miner.net:3691`
-- 🇪🇺 EU: `stratum+tcp://eu1.1miner.net:3691`
+### Pool (PPLNS)
+
+| Port | Type | Difficulty |
+|------|------|------------|
+| **3690** | CPU | VarDiff 0.01 (0.0005 → 1) |
+| **3691** | Industrial | VarDiff 1 (0.01 → ∞) |
+
+### Solo
+
+| Port | Type | Difficulty |
+|------|------|------------|
+| **3790** | CPU | VarDiff 0.01 (0.0005 → 1) |
+| **3791** | Industrial | VarDiff 1 (0.01 → ∞) |
+
+### Server Regions
+
+| Region | Hostname |
+|--------|----------|
+| US-TX (North America) | `1miner.net` |
+| EU-FR (Europe) | `eu1.1miner.net` |
+| SGP (Singapore) | `sgp.1miner.net` |
+
+**Examples:**
+```
+stratum+tcp://1miner.net:3691          # US pool
+stratum+tcp://eu1.1miner.net:3691      # EU pool
+stratum+tcp://sgp.1miner.net:3691      # Singapore pool
+stratum+tcp://1miner.net:3791          # US solo
+```
 
 **Xelis:**
-- 🇺🇸 USA: `stratum+tcp://1miner.net:3400`
+- USA: `stratum+tcp://1miner.net:3400`
 
 ---
 
@@ -82,12 +104,14 @@ AMD GPUs are auto-detected — no extra config needed.
 | Field | Value |
 |-------|-------|
 | Miner name | `dankminer` |
-| Installation URL | `https://1miner.net/miners/dankminer-1.2.8.tar.gz` |
+| Installation URL | `https://1miner.net/miners/dankminer-1.2.9.tar.gz` |
 | Hash algorithm | `whirlpool` |
 | Wallet | Your CapStash address |
 | Pool URL | `stratum+tcp://1miner.net:3691` |
 
-RTX 50 series: use `dankminer-1.2.8-rtx50.tar.gz` instead.
+Use the server closest to you: `1miner.net` (US), `eu1.1miner.net` (EU), or `sgp.1miner.net` (Singapore).
+
+RTX 50 series: use `dankminer-1.2.9-rtx50.tar.gz` instead.
 
 ---
 
@@ -114,13 +138,10 @@ RTX 50 series: use `dankminer-1.2.8-rtx50.tar.gz` instead.
 
 ---
 
-## What's New in v1.2.8
+## What's New in v1.2.9
 
-- Dev fee reduced: 5% → 2%
-- AMD auto-detection — no `--force-opencl` needed
-- Multi-GPU support for AMD
-- RTX 5060/5070/5080/5090 support
-- HiveOS AMD stats (temps, fans, bus IDs)
+- Major CapStash hashrate improvement
+- CapStash difficulty target corrected to native chain parameters
 - Performance and stability improvements
 
 ---

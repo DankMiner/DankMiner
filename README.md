@@ -1,4 +1,4 @@
-# DankMiner v1.2.9
+# DankMiner v1.2.9a
 **GPU Miner for CapStash & Xelis**
 Works on NVIDIA and AMD GPUs. Pool and solo mining. HiveOS ready.
 
@@ -8,16 +8,16 @@ Works on NVIDIA and AMD GPUs. Pool and solo mining. HiveOS ready.
 
 | Platform | Download | GPUs |
 |----------|----------|------|
-| **Windows** | [DankMiner-v1.2.9-Windows.zip](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9/DankMiner-v1.2.9-Windows.zip) | NVIDIA + AMD |
-| **Linux** | [DankMiner-v1.2.9-Linux.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9/DankMiner-v1.2.9-Linux.tar.gz) | NVIDIA + AMD |
-| **HiveOS** | [dankminer-1.2.9-hiveos.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9/dankminer-1.2.9-hiveos.tar.gz) | NVIDIA + AMD |
-| **Linux RTX 50 Series** | [dankminer-1.2.9-rtx50.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9/dankminer-1.2.9-rtx50.tar.gz) | RTX 5060–5090 + all others |
+| **Windows** | [DankMiner-v1.2.9a-Windows.zip](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9a/DankMiner-v1.2.9a-Windows.zip) | NVIDIA + AMD |
+| **Linux** | [DankMiner-v1.2.9a-Linux.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9a/DankMiner-v1.2.9a-Linux.tar.gz) | NVIDIA + AMD |
+| **HiveOS** | [dankminer-1.2.9a-hiveos.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9a/dankminer-1.2.9a-hiveos.tar.gz) | NVIDIA + AMD |
+| **Linux RTX 50 Series** | [dankminer-1.2.9a-rtx50.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9a/dankminer-1.2.9a-rtx50.tar.gz) | RTX 5060–5090 + all others |
 
 > **Which do I need?**
-> - **Windows** → `DankMiner-v1.2.9-Windows.zip`
-> - **Linux desktop** → `DankMiner-v1.2.9-Linux.tar.gz`
-> - **HiveOS** → `dankminer-1.2.9-hiveos.tar.gz`
-> - **RTX 5060/5070/5080/5090 on Linux** → `dankminer-1.2.9-rtx50.tar.gz`
+> - **Windows** → `DankMiner-v1.2.9a-Windows.zip`
+> - **Linux desktop** → `DankMiner-v1.2.9a-Linux.tar.gz`
+> - **HiveOS** → `dankminer-1.2.9a-hiveos.tar.gz`
+> - **RTX 5060/5070/5080/5090 on Linux** → `dankminer-1.2.9a-rtx50.tar.gz`
 
 ---
 
@@ -43,11 +43,11 @@ dankminer -a xelis -w YOUR_ADDRESS -p stratum+tcp://1miner.net:3400
 ## Options
 
 ```
-  -a ALGO       Algorithm: capstash, xelis
-  -w WALLET     Wallet address
-  -p URL        Pool or RPC URL
-  -W NAME       Worker name
-  -wl FILE      Wallet list for rotation
+  -a ALGO          Algorithm: capstash, xelis
+  -w WALLET        Wallet address
+  -p URL           Pool or RPC URL
+  -W NAME          Worker name
+  -wl FILE         Wallet list for rotation
   --force-opencl   Force OpenCL (for AMD GPUs if auto-detect doesn't work)
 ```
 
@@ -59,6 +59,12 @@ dankminer -a xelis -w YOUR_ADDRESS -p stratum+tcp://1miner.net:3400
 **AMD:** RX 470/480/570/580, Vega, RX 5000/6000/7000/9000 series
 
 AMD GPUs are auto-detected — no extra config needed.
+
+---
+
+## Web Dashboard
+
+Open `http://localhost:4068` in your browser while mining. Shows live hashrate, accepted/rejected shares, GPU temperature, fan speed, and power draw.
 
 ---
 
@@ -104,14 +110,14 @@ stratum+tcp://1miner.net:3791          # US solo
 | Field | Value |
 |-------|-------|
 | Miner name | `dankminer` |
-| Installation URL | `https://1miner.net/miners/dankminer-1.2.9.tar.gz` |
+| Installation URL | `https://1miner.net/miners/dankminer-1.2.9a.tar.gz` |
 | Hash algorithm | `whirlpool` |
 | Wallet | Your CapStash address |
 | Pool URL | `stratum+tcp://1miner.net:3691` |
 
 Use the server closest to you: `1miner.net` (US), `eu1.1miner.net` (EU), or `sgp.1miner.net` (Singapore).
 
-RTX 50 series: use `dankminer-1.2.9-rtx50.tar.gz` instead.
+RTX 50 series: use `dankminer-1.2.9a-rtx50.tar.gz` instead.
 
 ---
 
@@ -126,6 +132,8 @@ RTX 50 series: use `dankminer-1.2.9-rtx50.tar.gz` instead.
 
 ## Troubleshooting
 
+**"CUDA err 999 / unknown error"** — GPU driver reset. v1.2.9a recovers automatically. If it happens frequently on Windows, run `install_tdr_fix.bat` as Administrator and reboot to raise the Windows GPU watchdog timeout.
+
 **"no kernel image available"** — Wrong build for your GPU. RTX 50 series needs the RTX 50 build. GTX 10 series needs the standard Linux build.
 
 **"CUDA not available — trying OpenCL"** — Normal on AMD rigs. No action needed.
@@ -138,11 +146,13 @@ RTX 50 series: use `dankminer-1.2.9-rtx50.tar.gz` instead.
 
 ---
 
-## What's New in v1.2.9
+## What's New in v1.2.9a
 
-- Major CapStash hashrate improvement
-- CapStash difficulty target corrected to native chain parameters
-- Performance and stability improvements
+- Fixed CUDA error 999 crash after sustained mining (kernel buffer overflow)
+- Automatic GPU recovery from Windows TDR / driver resets
+- ~10% CapStash hashrate improvement (Whirlpool V10.5 kernel)
+- NVML GPU monitoring (temp, fan, power) on web dashboard
+- Included `install_tdr_fix.bat` for Windows GPU timeout optimization
 
 ---
 

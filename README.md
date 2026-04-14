@@ -10,13 +10,13 @@ Works on NVIDIA and AMD GPUs. Pool and solo mining. HiveOS ready.
 |----------|----------|------|
 | **Windows** | [DankMiner-v1.2.9a-Windows.zip](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9a/DankMiner-v1.2.9a-Windows.zip) | NVIDIA + AMD |
 | **Linux** | [DankMiner-v1.2.9a-Linux.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9a/DankMiner-v1.2.9a-Linux.tar.gz) | NVIDIA + AMD |
-| **HiveOS** | [dankminer-1.2.9a-hiveos.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9a/dankminer-1.2.9a-hiveos.tar.gz) | NVIDIA + AMD |
+| **HiveOS** | [dankminer-1.2.9a.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9a/dankminer-1.2.9a.tar.gz) | NVIDIA + AMD |
 | **Linux RTX 50 Series** | [dankminer-1.2.9a-rtx50.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9a/dankminer-1.2.9a-rtx50.tar.gz) | RTX 5060–5090 + all others |
 
 > **Which do I need?**
 > - **Windows** → `DankMiner-v1.2.9a-Windows.zip`
 > - **Linux desktop** → `DankMiner-v1.2.9a-Linux.tar.gz`
-> - **HiveOS** → `dankminer-1.2.9a-hiveos.tar.gz`
+> - **HiveOS** → `dankminer-1.2.9a.tar.gz`
 > - **RTX 5060/5070/5080/5090 on Linux** → `dankminer-1.2.9a-rtx50.tar.gz`
 
 ---
@@ -109,11 +109,13 @@ stratum+tcp://1miner.net:3791          # US solo
 
 | Field | Value |
 |-------|-------|
-| Miner name | `dankminer` |
-| Installation URL | `https://1miner.net/miners/dankminer-1.2.9a.tar.gz` |
+| Miner name | **`dankminer`** (not the version — just `dankminer`) |
+| Installation URL | `https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.2.9a/dankminer-1.2.9a.tar.gz` |
 | Hash algorithm | `whirlpool` |
 | Wallet | Your CapStash address |
 | Pool URL | `stratum+tcp://1miner.net:3691` |
+
+> **Important:** The flight sheet miner name must be exactly `dankminer` — not `dankminerV1.2.9a` or anything else. The miner will fail to launch if the name doesn't match.
 
 Use the server closest to you: `1miner.net` (US), `eu1.1miner.net` (EU), or `sgp.1miner.net` (Singapore).
 

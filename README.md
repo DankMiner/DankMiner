@@ -1,4 +1,4 @@
-# DankMiner v1.3.0
+# DankMiner v1.3.0a
 **GPU Miner for CapStash, Xelis & Warthog**
 Works on NVIDIA and AMD GPUs. Pool and solo mining. HiveOS ready.
 
@@ -8,16 +8,16 @@ Works on NVIDIA and AMD GPUs. Pool and solo mining. HiveOS ready.
 
 | Platform | Download | GPUs |
 |----------|----------|------|
-| **Windows** | [DankMiner-v1.3.0-Windows.zip](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.3.0/DankMiner-v1.3.0-Windows.zip) | NVIDIA + AMD |
-| **Linux** | [DankMiner-v1.3.0-Linux.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.3.0/DankMiner-v1.3.0-Linux.tar.gz) | NVIDIA + AMD |
-| **HiveOS** | [dankminer-1.3.0.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.3.0/dankminer-1.3.0-hiveos.tar.gz) | NVIDIA + AMD |
-| **Linux RTX 50 Series** | [dankminer-1.3.0-rtx50.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.3.0/dankminer-1.3.0-rtx50.tar.gz) | RTX 5060–5090 + all others |
+| **Windows** | [DankMiner-v1.3.0a-Windows.zip](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.3.0a/DankMiner-v1.3.0a-Windows.zip) | NVIDIA + AMD |
+| **Linux** | [DankMiner-v1.3.0a-Linux.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.3.0a/DankMiner-v1.3.0a-Linux.tar.gz) | NVIDIA + AMD |
+| **HiveOS** | [dankminer-1.3.0a.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.3.0a/dankminer-1.3.0a.tar.gz) | NVIDIA + AMD |
+| **Linux RTX 50 Series** | [dankminer-1.3.0a-rtx50.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.3.0a/dankminer-1.3.0a-rtx50.tar.gz) | RTX 5060–5090 + all others |
 
 > **Which do I need?**
-> - **Windows** → `DankMiner-v1.3.0-Windows.zip`
-> - **Linux desktop** → `DankMiner-v1.3.0-Linux.tar.gz`
-> - **HiveOS** → `dankminer-1.3.0-hiveos.tar.gz`
-> - **RTX 5060/5070/5080/5090 on Linux** → `dankminer-1.3.0-rtx50.tar.gz`
+> - **Windows** → `DankMiner-v1.3.0a-Windows.zip`
+> - **Linux desktop** → `DankMiner-v1.3.0a-Linux.tar.gz`
+> - **HiveOS** → `dankminer-1.3.0a.tar.gz`
+> - **RTX 5060/5070/5080/5090 on Linux** → `dankminer-1.3.0a-rtx50.tar.gz`
 
 ---
 
@@ -35,12 +35,12 @@ dankminer -a capstash -w YOUR_ADDRESS -p http://user:pass@127.0.0.1:33333
 
 **Xelis:**
 ```
-dankminer -a xelis -w YOUR_ADDRESS -p stratum+tcp://1miner.net:3400
+dankminer -a xelis -w YOUR_ADDRESS -p stratum+tcp://1miner.net:4073
 ```
 
 **Warthog:**
 ```
-dankminer -a warthog -w YOUR_ADDRESS -p stratum+tcp://1miner.net:3456
+dankminer -a warthog -w YOUR_ADDRESS -p stratum+tcp://1miner.net:4200
 ```
 
 ---
@@ -105,8 +105,8 @@ stratum+tcp://1miner.net:3691          # CapStash US pool
 stratum+tcp://eu1.1miner.net:3691      # CapStash EU pool
 stratum+tcp://sgp.1miner.net:3691      # CapStash Singapore pool
 stratum+tcp://1miner.net:3791          # CapStash US solo
-stratum+tcp://1miner.net:3400          # Xelis
-stratum+tcp://1miner.net:3456          # Warthog
+stratum+tcp://1miner.net:4073          # Xelis
+stratum+tcp://1miner.net:4200          # Warthog
 ```
 
 ---
@@ -116,16 +116,16 @@ stratum+tcp://1miner.net:3456          # Warthog
 | Field | Value |
 |-------|-------|
 | Miner name | **`dankminer`** (not the version — just `dankminer`) |
-| Installation URL | `https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.3.0/dankminer-1.3.0-hiveos.tar.gz` |
+| Installation URL | `https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.3.0a/dankminer-1.3.0a.tar.gz` |
 | Hash algorithm | `whirlpool` |
 | Wallet | Your CapStash address |
 | Pool URL | `stratum+tcp://1miner.net:3691` |
 
-> **Important:** The flight sheet miner name must be exactly `dankminer` — not `dankminerV1.3.0` or anything else. The miner will fail to launch if the name doesn't match.
+> **Important:** The flight sheet miner name must be exactly `dankminer` — not `dankminerV1.3.0a` or anything else. The miner will fail to launch if the name doesn't match.
 
 Use the server closest to you: `1miner.net` (US), `eu1.1miner.net` (EU), or `sgp.1miner.net` (Singapore).
 
-RTX 50 series: use `dankminer-1.3.0-rtx50.tar.gz` instead.
+RTX 50 series: use `dankminer-1.3.0a-rtx50.tar.gz` instead.
 
 ---
 
@@ -141,7 +141,7 @@ RTX 50 series: use `dankminer-1.3.0-rtx50.tar.gz` instead.
 
 ## Troubleshooting
 
-**"CUDA err 999 / unknown error"** — GPU driver reset. v1.3.0 recovers automatically. If it happens frequently on Windows, run `install_tdr_fix.bat` as Administrator and reboot to raise the Windows GPU watchdog timeout.
+**"CUDA err 999 / unknown error"** — GPU driver reset. v1.3.0a recovers automatically. If it happens frequently on Windows, run `install_tdr_fix.bat` as Administrator and reboot to raise the Windows GPU watchdog timeout.
 
 **"no kernel image available"** — Wrong build for your GPU. RTX 50 series needs the RTX 50 build. GTX 10 series needs the standard Linux build.
 
@@ -155,7 +155,14 @@ RTX 50 series: use `dankminer-1.3.0-rtx50.tar.gz` instead.
 
 ---
 
-## What's New in v1.3.0
+## What's New in v1.3.0a
+
+- Improved startup reliability across all three algorithms
+- Smoother cycle handling
+- Cleaner reconnect behavior on slow or busy pools
+- Quieter, more consistent console and dashboard output
+
+### Carrying forward from v1.3.0
 
 - **Warthog (JanusHash) support** — third supported algorithm
 - **Mixed-card rig support** — run NVIDIA and AMD GPUs together in the same instance, auto-detected

@@ -179,11 +179,13 @@ stratum+tcp://1miner.net:3333          # XMR / RandomX
 
 DankMiner runs as a **custom miner** on HiveOS. From the flight sheet → Miner → "More miners…" → **Setup miner config** opens this dialog:
 
+![HiveOS Flight Sheet Configuration](docs/flightsheet.png)
+
 | Field | Value |
 |-------|-------|
 | **Miner name** | `dankminer` (just the name — not the version) |
 | **Installation URL** | `https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.4.0/dankminer-1.4.0.tar.gz` |
-| **Hash algorithm** | leave blank (informational only — DankMiner sets its own algo) |
+| **Hash algorithm** | `whirlpool` |
 | **Wallet and worker template** | your CapStash address |
 | **Pool URL** | `stratum+tcp://1miner.net:3691` |
 | **Pass** | leave blank |

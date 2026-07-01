@@ -1,6 +1,6 @@
-# DankMiner v1.4.0
-**GPU + CPU Miner for CapStash, Xelis, Warthog & Monero (RandomX)**
-Works on NVIDIA and AMD GPUs. CPU mining for any rx/0 RandomX coin. Pool and solo. HiveOS ready. Dual GPU+CPU mining in one process.
+# DankMiner v1.5.3
+**GPU + CPU Miner for CapStash, Xelis, Warthog, Monero (RandomX) & Cereblix (NeuroMorph)**
+Works on NVIDIA and AMD GPUs. CPU mining for Monero/RandomX (rx/0) and Cereblix/NeuroMorph (nm/1). Pool and solo. HiveOS ready. Dual GPU+CPU mining in one process.
 
 ---
 
@@ -8,11 +8,12 @@ Works on NVIDIA and AMD GPUs. CPU mining for any rx/0 RandomX coin. Pool and sol
 
 | Platform | Download | Hardware |
 |----------|----------|----------|
-| **Windows** | [DankMiner-v1.4.0-Windows.zip](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.4.0/DankMiner-v1.4.0-Windows.zip) | NVIDIA + AMD + CPU |
-| **Linux** | [DankMiner-v1.4.0-Linux.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.4.0/DankMiner-v1.4.0-Linux.tar.gz) | NVIDIA + AMD + CPU |
-| **HiveOS** (all GPUs) | [dankminer-1.4.0.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.4.0/dankminer-1.4.0.tar.gz) | NVIDIA (incl. RTX 50) + AMD + CPU |
+| **Windows** | [DankMiner-v1.5.3-Windows.zip](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.5.3/DankMiner-v1.5.3-Windows.zip) | NVIDIA + AMD + CPU |
+| **Linux** | [DankMiner-v1.5.3-Linux.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.5.3/DankMiner-v1.5.3-Linux.tar.gz) | NVIDIA + AMD + CPU |
+| **HiveOS** (all GPUs) | [dankminer-1.5.3.tar.gz](https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.5.3/dankminer-1.5.3.tar.gz) | NVIDIA (incl. RTX 50) + AMD + CPU |
 
-> **Heads-up for v1.3.0a users:** v1.4.0 ships a **single unified Linux tarball** that replaces the old compat + rtx50 split. The new build has CUDA 12.8 fatbins (native sm_120 SASS for RTX 50) but stays linked under CUDA 11.8 so the driver floor remains 525+ — same broad HiveOS compat as the old compat tarball, plus full RTX 50 support, in one file.
+> **New in v1.5.3:** Cereblix (CRB) / NeuroMorph on the CPU — the second CPU coin
+> alongside Monero/RandomX, with full GPU+CPU dual-mining support.
 
 ---
 
@@ -27,26 +28,39 @@ Open `http://localhost:4068` in your browser while mining. Live hashrate per alg
 ## Quick Start
 
 **CapStash (GPU):**
+
 ```
 dankminer -a capstash -w YOUR_ADDRESS -p stratum+tcp://1miner.net:3691 --worker rig1
 ```
 
 **Xelis (GPU):**
+
 ```
 dankminer -a xelis -w YOUR_ADDRESS -p stratum+tcp://1miner.net:4073
 ```
 
 **Warthog (GPU + CPU, JanusHash):**
+
 ```
 dankminer -a warthog -w YOUR_ADDRESS -p stratum+tcp://1miner.net:4200
 ```
 
 **Monero / XMR (CPU only, RandomX rx/0):**
+
 ```
 dankminer -a xmr -w YOUR_XMR_ADDRESS -p stratum+tcp://1miner.net:3333
 ```
 
+**Cereblix / CRB (CPU only, NeuroMorph nm/1):**
+
+```
+dankminer -a crb -w YOUR_CRB_ADDRESS -p stratum+tcp://us1.1miner.net:9836 --cpu-threads 14 --crb-lanes 4
+```
+
+> `-p` is optional for CRB — it defaults to `stratum+tcp://us1.1miner.net:9836`.
+
 **Solo CapStash (against your own capstashd RPC):**
+
 ```
 dankminer -a capstash -w YOUR_ADDRESS -p http://user:pass@127.0.0.1:33333
 ```
@@ -55,7 +69,17 @@ dankminer -a capstash -w YOUR_ADDRESS -p http://user:pass@127.0.0.1:33333
 
 ## Dual Mining (GPU + CPU at the same time)
 
-Add `--xmr-wallet ADDR` to **any GPU primary command** to mine RandomX rx/0 on the CPU at the same time. One process, one console, one dashboard.
+Add `--xmr-wallet ADDR` **or** `--crb-wallet ADDR` to **any GPU primary command** to
+mine a CPU coin at the same time. One process, one console, one dashboard.
+
+**CapStash (GPU) + Cereblix (CPU):**
+
+```
+dankminer -a capstash -w YOUR_CAP_ADDRESS -p stratum+tcp://1miner.net:3691 \
+          --crb-wallet YOUR_CRB_ADDRESS --crb-threads 12
+```
+
+**CapStash (GPU) + Monero (CPU):**
 
 ```
 dankminer -a capstash -w YOUR_CAP_ADDRESS -p stratum+tcp://1miner.net:3691 \
@@ -63,28 +87,25 @@ dankminer -a capstash -w YOUR_CAP_ADDRESS -p stratum+tcp://1miner.net:3691 \
 ```
 
 - **GPU mines CapStash / Xelis / Warthog** as the primary algorithm
-- **CPU mines RandomX rx/0** as a secondary passenger thread
+- **CPU mines RandomX (rx/0) or NeuroMorph (nm/1)** as a secondary passenger thread
 - Each algo keeps its own dev-fee schedule independently
-- Dashboard shows both side by side; console prefixes XMR lines with `[XMR]`
+- Dashboard shows both side by side; console prefixes CPU lines with `[XMR]` / `[CRB]`
 
-`--xmr-pool` accepts **any rx/0 stratum URL** — Monero, Zephyr, Salvium, Townforge, and any other coin using standard RandomX rx/0 parameters. Variants with non-default RandomX parameters (Wownero rx/wow, ArQmA rx/arq) are not supported.
+`--xmr-pool` accepts **any rx/0 stratum URL** (Monero, Zephyr, Salvium, Townforge, …).
+`--crb-pool` accepts **any nm/1 (NeuroMorph) stratum URL** — Cereblix is currently the
+only NeuroMorph coin.
 
-**Custom rx/0 pool example:**
-```
-dankminer -a capstash -w YOUR_CAP_ADDRESS -p stratum+tcp://1miner.net:3691 \
-          --xmr-wallet YOUR_RX_ADDRESS \
-          --xmr-pool stratum+tcp://your-rx0-pool.example:3333 \
-          --xmr-threads 12
-```
-
-**Threading rule of thumb:** RandomX scales by *physical cores*, not logical threads. On a 12-core / 24-thread CPU, `--xmr-threads 11` or `12` will outperform `--xmr-threads 23`. Less is more.
+**Threading rule of thumb:** both RandomX and NeuroMorph scale by *physical cores*, not
+logical threads. On a 12-core / 24-thread CPU, `--crb-threads 11`/`12` beats `23`. For
+NeuroMorph, also try a few `--crb-lanes` values (1–16) and keep whatever gives the most
+H/s — big-cache CPUs like 4–8, cache-tight desktops like 1–2.
 
 ---
 
 ## Options
 
 ```
-  -a ALGO          Algorithm: capstash, xelis, warthog, xmr
+  -a ALGO          Algorithm: capstash, xelis, warthog (GPU); xmr, crb (CPU)
   -w WALLET        Wallet/payout address for the primary algo
   -p URL           Pool or RPC URL for the primary algo
   -W NAME          Worker name
@@ -92,17 +113,25 @@ dankminer -a capstash -w YOUR_CAP_ADDRESS -p stratum+tcp://1miner.net:3691 \
   --force-opencl   Force OpenCL (for AMD GPUs if auto-detect doesn't work)
   --no-cuda        Skip CUDA entirely — OpenCL drives every GPU
   --no-ocl         Skip OpenCL entirely — CUDA only
+  --cpu-threads N  CPU worker threads (for standalone xmr / crb)
   --cpu-cores N    Pin the miner to the first N logical CPU cores
   --cpu-affinity LIST   Pin process to specific cores (e.g. 0,1 or 0-3)
 ```
 
 **Dual-mining flags** (only valid with a GPU primary):
+
 ```
   --xmr-wallet ADDR    Run RandomX rx/0 on the CPU alongside the primary
   --xmr-pool URL       RandomX pool URL (default stratum+tcp://1miner.net:3333)
   --xmr-worker NAME    Worker name for XMR (default: same as -W)
   --xmr-threads N      CPU threads for XMR (default: hw cores - 1)
   --xmr-light          Light-mode RandomX (256 MiB, ~10x slower than full)
+
+  --crb-wallet ADDR    Run NeuroMorph nm/1 on the CPU alongside the primary
+  --crb-pool URL       CRB pool URL (default stratum+tcp://us1.1miner.net:9836)
+  --crb-worker NAME    Worker name for CRB (default: same as -W)
+  --crb-threads N      CPU threads for CRB (default: hw cores - 1)
+  --crb-lanes N        K-lane batch per worker, 1-16 (default 4)
 ```
 
 ---
@@ -112,7 +141,8 @@ dankminer -a capstash -w YOUR_CAP_ADDRESS -p stratum+tcp://1miner.net:3691 \
 **NVIDIA:** GTX 1060 through RTX 5090 (CUDA, embedded fatbin)
 **AMD:** RX 470/480/570/580, Vega, RX 5000/6000/7000/9000 series (OpenCL)
 **Intel:** Arc (OpenCL, experimental)
-**CPU:** Any x86-64 with AES-NI for RandomX (XMR / dual mining)
+**CPU (XMR):** Any x86-64 with AES-NI for RandomX
+**CPU (CRB):** x86-64 with **AVX2 + AES-NI** — Intel Haswell (2013)+ / AMD Zen+
 
 AMD GPUs are auto-detected — no extra config needed. Hybrid NVIDIA + AMD rigs run in the same instance with each card on its native backend.
 
@@ -154,6 +184,12 @@ AMD GPUs are auto-detected — no extra config needed. Hybrid NVIDIA + AMD rigs 
 |------|------|
 | **3333** | Pool (PPLNS) |
 
+### Cereblix / CRB (NeuroMorph nm/1)
+
+| Host:Port | Type |
+|-----------|------|
+| **us1.1miner.net:9836** | Pool (PPLNS) |
+
 ### Server Regions
 
 | Region | Hostname |
@@ -163,6 +199,7 @@ AMD GPUs are auto-detected — no extra config needed. Hybrid NVIDIA + AMD rigs 
 | SGP (Singapore) | `sgp.1miner.net` |
 
 **Examples:**
+
 ```
 stratum+tcp://1miner.net:3691          # CapStash US pool
 stratum+tcp://eu1.1miner.net:3691      # CapStash EU pool
@@ -171,6 +208,7 @@ stratum+tcp://1miner.net:3791          # CapStash US solo
 stratum+tcp://1miner.net:4073          # Xelis
 stratum+tcp://1miner.net:4200          # Warthog
 stratum+tcp://1miner.net:3333          # XMR / RandomX
+stratum+tcp://us1.1miner.net:9836      # CRB / NeuroMorph
 ```
 
 ---
@@ -184,21 +222,26 @@ DankMiner runs as a **custom miner** on HiveOS. From the flight sheet → Miner 
 | Field | Value |
 |-------|-------|
 | **Miner name** | `dankminer` (just the name — not the version) |
-| **Installation URL** | `https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.4.0/dankminer-1.4.0.tar.gz` |
+| **Installation URL** | `https://github.com/DankMiner/DankMiner/releases/download/DankMinerV1.5.3/dankminer-1.5.3.tar.gz` |
 | **Hash algorithm** | `whirlpool` |
 | **Wallet and worker template** | your CapStash address |
 | **Pool URL** | `stratum+tcp://1miner.net:3691` |
 | **Pass** | leave blank |
 | **Extra config arguments** | leave blank for solo CapStash, or see below for dual mining |
 
-> **Important:** the miner name must be exactly `dankminer` — not `dankminerV1.4.0` or anything else. The miner will fail to launch if the name doesn't match what's inside the tarball.
+> **Important:** the miner name must be exactly `dankminer` — not `dankminerV1.5.3` or anything else. The miner will fail to launch if the name doesn't match what's inside the tarball.
 
-**Dual mining on HiveOS** — add the XMR flags to the **Extra config arguments** field:
+**Dual mining on HiveOS** — add the CPU-coin flags to the **Extra config arguments** field:
+
+```
+--crb-wallet YOUR_CRB_ADDRESS --crb-threads 12
+```
+or, for Monero instead of Cereblix:
 ```
 --xmr-wallet YOUR_XMR_ADDRESS --xmr-threads 12
 ```
 
-The same single tarball (`dankminer-1.4.0.tar.gz`) covers every supported GPU including RTX 50. No separate rtx50 download anymore — Option C unified build.
+The same single tarball (`dankminer-1.5.3.tar.gz`) covers every supported GPU including RTX 50. Option C unified build — no separate rtx50 download.
 
 Use the server closest to you: `1miner.net` (US), `eu1.1miner.net` (EU), or `sgp.1miner.net` (Singapore).
 
@@ -212,6 +255,7 @@ Use the server closest to you: `1miner.net` (US), `eu1.1miner.net` (EU), or `sgp
 | Xelis | 1% |
 | Warthog | 1% |
 | XMR (RandomX) | 2% |
+| CRB (NeuroMorph) | 1% |
 
 In dual mining each algo runs its own dev-fee schedule independently — they don't both go to dev fee at the same time.
 
@@ -225,39 +269,38 @@ In dual mining each algo runs its own dev-fee schedule independently — they do
 
 **"CUDA not available — trying OpenCL"** — Normal on AMD-only rigs. No action needed.
 
-**"GLIBC not found"** — Use the HiveOS build (`dankminer-1.4.0.tar.gz`) instead of the Linux desktop build.
+**"GLIBC not found"** — Use the HiveOS build (`dankminer-1.5.3.tar.gz`) instead of the Linux desktop build.
 
 **Low GPU hashrate** — Check temps, riser cables, and power delivery. Whirlpool is core-heavy — boost core clock, drop memory clock.
 
-**Low XMR / RandomX hashrate** — RandomX hates SMT and oversubscription. Use `--xmr-threads N` where N ≈ physical cores (not logical threads). On a 12c/24t CPU try `--xmr-threads 12`, not 23. Also check that hugepages are enabled (`cat /proc/sys/vm/nr_hugepages` should be > 0) — RandomX loses 30-50% without them.
+**Low XMR / RandomX hashrate** — RandomX hates SMT and oversubscription. Use `--xmr-threads N` where N ≈ physical cores. Enable hugepages (`cat /proc/sys/vm/nr_hugepages` should be > 0) — RandomX loses 30-50% without them.
+
+**Low CRB / NeuroMorph hashrate** — NeuroMorph is memory-latency bound. Use `--crb-threads N` near your physical core count, and sweep `--crb-lanes` (1–16): big-cache CPUs (EPYC/Threadripper) usually want 4–8, cache-tight desktops 1–2. Keep whatever gives the most H/s.
+
+**"CRB needs AVX2 + AES-NI" / illegal instruction on CRB** — Your CPU is older than Haswell (2013) / Zen. CapStash/Xelis/Warthog/XMR still work; NeuroMorph does not.
 
 **"GPU has fallen off the bus"** — Hardware issue. Power cycle the rig. If it repeats, replace the riser on that GPU slot.
 
-**Duplicate share rejects on big-CPU rigs** — Fixed in v1.4.0 (nonce-slice overflow on >64 worker threads). Update from any earlier dual-mining build.
-
 ---
 
-## What's New in v1.4.0
+## What's New in v1.5.3
 
-- **Monero / XMR support** via vendored tevador/RandomX v1.2.1 — the same engine xmrig uses
-- **Dual mining** — GPU primary + RandomX rx/0 on CPU in one process, one dashboard
-- **Any rx/0 coin** — `--xmr-pool` is not Monero-locked; works with Zephyr, Salvium, Townforge, and any other coin using standard rx/0
-- **Redesigned web dashboard** — flat black palette, embedded DankMiner logo, side-by-side dual-mining cards
-- **Embedded exe icon** — Windows Explorer / taskbar / alt-tab now show the DankMiner logo
-- **CPU model detection** — dashboard and console show the actual chip brand (`Ryzen 7 7800X3D`, `EPYC 9754`, `Core i9-13900K`) instead of a thread-count placeholder
-- **Single unified Linux tarball** — replaces the prior compat + rtx50 split. Same binary works on every supported GPU.
-- **Bug fixes** — dual-mining HR-thread race fixed (no more KH/s flicker into the GPU hashrate slot), nonce-slice overflow fixed for >64-thread CPUs, Monero stratum target endianness corrected to xmrig-compatible LE u32/u64
+- **Cereblix / CRB support** via the vendored NeuroMorph fast core (Cereblix's own `unm`, MIT) — byte-identical to consensus, validated against the live pool
+- **CRB dual mining** — GPU primary + NeuroMorph nm/1 on the CPU in one process, one dashboard, alongside the existing XMR passenger
+- **K-lane batch hashing** (`--crb-lanes`) to hide the NeuroMorph 64 MiB dataset latency
+- **Default CRB pool** `stratum+tcp://us1.1miner.net:9836` — used automatically when `-p` is omitted
+- **New launchers** — `mine_crb.bat` and `mine_dual_crb_capstash.bat`
+- New flags: `--crb-wallet`, `--crb-pool`, `--crb-worker`, `--crb-threads`, `--crb-lanes`
 
-### Carrying forward from v1.3.0a
+### Carrying forward from v1.5.x
 
+- **Monero / XMR (RandomX rx/0)** CPU mining + GPU/CPU dual mining, any rx/0 coin
 - **Three GPU algorithms in one binary** — CapStash, Xelis, Warthog
-- **Multi-GPU support** on all GPU algorithms
-- **Hybrid CUDA + OpenCL** on CapStash for mixed-vendor rigs
-- **Per-GPU stats** — every share logged with which card found it, plus per-GPU accept/reject in the dashboard
+- **Multi-GPU** on all GPU algorithms; **Hybrid CUDA + OpenCL** on CapStash
 - **Per-GPU backend selection** — `--cuda=0,1`, `--ocl=0`, `--no-cuda`, `--no-ocl`
-- **CPU control flags** — `--cpu-cores`, `--cpu-affinity`, plus matching `config.txt` support
-- **Improved reconnect handling** and smoother multi-GPU share reporting
-- **`config.txt` fields:** `worker`, `cpu_threads`, `cpu_cores`, `cpu_affinity`, device filters
+- **CPU control flags** — `--cpu-cores`, `--cpu-affinity`, plus matching `config.txt`
+- **Redesigned dashboard** with side-by-side dual-mining cards and CPU model detection
+- **Single unified Linux tarball** — CUDA 12.8 fatbins (native sm_120 for RTX 50) linked under CUDA 11.8 (driver floor 525+)
 
 ---
 
@@ -265,6 +308,7 @@ In dual mining each algo runs its own dev-fee schedule independently — they do
 
 - **Pool:** [1miner.net](https://1miner.net)
 - **Discord:** [discord.gg/YZXGEa9RhK](https://discord.gg/YZXGEa9RhK)
+- **Cereblix:** [github.com/CereblixCRB/cereblix](https://github.com/CereblixCRB/cereblix)
 - **CapStash Core:** [github.com/CapStash/CapStash-Core](https://github.com/CapStash/CapStash-Core)
 
 ---
